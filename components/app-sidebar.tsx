@@ -19,7 +19,13 @@ import {
   IconUsers,
   IconHome
 } from "@tabler/icons-react"
-
+import { IconHeartHandshake } from '@tabler/icons-react';
+import { IconTransform } from '@tabler/icons-react';
+import { IconUserPlus } from '@tabler/icons-react';
+import { IconMoodSpark } from '@tabler/icons-react';
+import { IconCash } from '@tabler/icons-react';
+import { IconInfoTriangle } from '@tabler/icons-react';
+import { IconShield } from '@tabler/icons-react';
 
 import { NavMain } from '@/components/nav-main'
 import { NavSecondary } from '@/components/nav-secondary'
@@ -49,42 +55,42 @@ const data = {
     {
       title: "Creators",
       url: "/creators",
-      icon: IconListDetails,
+      icon: IconUsers,
     },
     {
       title: "Recruitment",
       url: "/recruitment",
-      icon: IconChartBar,
+      icon: IconUserPlus,
     },
     {
       title: "Training",
       url: "/training",
-      icon: IconFolder,
+      icon: IconTransform,
     },
     {
       title: "Operations",
       url: "/operations",
-      icon: IconUsers,
+      icon: IconMoodSpark,
     },
     {
       title: "Escalation",
       url: "/escalation",
-      icon: IconUsers,
+      icon: IconInfoTriangle,
     },
     {
       title: "Finance",
       url: "/finance",
-      icon: IconUsers,
+      icon: IconCash,
     },
     {
       title: "Compliance",
       url: "/compliance",
-      icon: IconUsers,
+      icon: IconShield,
     },
     {
       title: "Reports",
       url: "/reports",
-      icon: IconUsers,
+      icon: IconFileDescription,
     },
   ],
 
@@ -97,7 +103,7 @@ const data = {
     {
       title: "Support",
       url: "/support",
-      icon: IconHelp,
+      icon: IconHeartHandshake,
     },
   ],
 

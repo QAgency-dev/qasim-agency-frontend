@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
+  title: 'Qasim Agency',
+  description: 'Manage your agency with ease using Qasim Agency - the all-in-one solution for recruitment, training, operations, finance, compliance, and reporting.',
   generator: 'v0.app',
 }
 
