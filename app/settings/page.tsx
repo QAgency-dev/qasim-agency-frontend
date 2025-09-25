@@ -32,7 +32,7 @@ export default function OrganizationSettingsPage() {
         autoComplete="off"
       >
         <Row gutter={16}>
-          <Col span={12}>
+          <Col xs={24} lg={12}>
             <Form.Item
               label="Organization Name"
               name="organizationName"
@@ -41,7 +41,7 @@ export default function OrganizationSettingsPage() {
               <Input />
             </Form.Item>
           </Col>
-          <Col span={12}>
+          <Col xs={24} lg={12}>
             <Form.Item
               label="Default Language"
               name="defaultLanguage"
@@ -57,7 +57,7 @@ export default function OrganizationSettingsPage() {
         </Row>
 
         <Row gutter={16}>
-          <Col span={12}>
+          <Col xs={24} lg={12}>
             <Form.Item
               label="Timezone"
               name="timezone"
@@ -70,7 +70,7 @@ export default function OrganizationSettingsPage() {
               </Select>
             </Form.Item>
           </Col>
-          <Col span={12}>
+          <Col xs={24} lg={12}>
             <Form.Item
               label="Payout Currency"
               name="payoutCurrency"

@@ -1,6 +1,9 @@
 'use client';
 
+import React, { useState } from 'react';
+
 import { PlusOutlined } from '@ant-design/icons';
+
 import {
   Button,
   Cascader,
@@ -13,16 +16,31 @@ import {
   Radio,
   Rate,
   Select,
-  Slider,
   Switch,
   TreeSelect,
   Upload,
   Space,
-  Table,
   Tag,
   Card,
 } from 'antd';
-import type { TableProps } from 'antd';
+
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
 
 interface DataType {
   key: string;
@@ -33,58 +51,8 @@ interface DataType {
   status: 'active' | 'deactive';
 }
 
-const columns: TableProps<DataType>['columns'] = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-  },
-  {
-    title: 'Email Address',
-    dataIndex: 'email',
-    key: 'email',
-  },
-  {
-    title: 'Roles',
-    key: 'roles',
-    dataIndex: 'roles',
-    render: (_, { roles }) => (
-      <>
-        {roles.map((role) => {
-          let color = role.length > 5 ? 'geekblue' : 'green';
-          return (
-            <Tag color={color} key={role}>
-              {role.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
-    ),
-  },
-  {
-    title: 'Status',
-    key: 'status',
-    dataIndex: 'status',
-    render: (status: 'active' | 'deactive') => {
-      let color = status === 'active' ? 'green' : 'volcano';
-      return (
-        <Tag color={color} key={status}>
-          {status.toUpperCase()}
-        </Tag>
-      );
-    },
-  },
-  {
-    title: 'Action',
-    key: 'action',
-    render: (_, record) => (
-      <Space size="middle">
-        <a>Edit</a>
-        <a>Suspend</a>
-      </Space>
-    ),
-  },
-];
+
+
 
 const data: DataType[] = [
   {
@@ -139,6 +107,14 @@ const data: DataType[] = [
 ];
 
 export default function EmployeeSettingsPage() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(data.length / itemsPerPage);
+
   const onFinish = (values: any) => {
     console.log('Received values of form: ', values);
   };
@@ -163,37 +139,35 @@ export default function EmployeeSettingsPage() {
           layout="vertical"
           onFinish={onFinish}
           initialValues={{ remember: true }}
+          
         >
           <Form.Item
-            label="Name"
             name="name"
-            rules={[{ required: true, message: 'Please input the employee\'s name!' }]}
+            rules={[{ required: true, message: 'Please input the employee\'s name!' }]} 
           >
             <Input placeholder="Employee Name" />
           </Form.Item>
 
           <Form.Item
-            label="Email Address"
             name="email"
-            rules={[{ required: true, message: 'Please input the email address!' }]}
-          >
+            rules={[{ required: true, message: 'Please input the email address!' }]}>
             <Input placeholder="Email Address" />
           </Form.Item>
 
           <Form.Item
-            label="Password"
             name="password"
-            rules={[{ required: true, message: 'Please input the password!' }]}
-          >
+            rules={[{ required: true, message: 'Please input the password!' }]}>
             <Input.Password placeholder="Password" />
           </Form.Item>
 
           <Form.Item
-            label="Assign Roles"
             name="roles"
-            rules={[{ required: true, message: 'Please select at least one role!' }]}
-          >
-            <Checkbox.Group options={roles} />
+            rules={[{ required: true, message: 'Please select at least one role!' }]}>
+            <div className="flex flex-wrap">
+              <Checkbox.Group
+                options={roles}
+              />
+            </div>
           </Form.Item>
 
           <Form.Item>
@@ -207,8 +181,75 @@ export default function EmployeeSettingsPage() {
       <div style={{ margin: '24px 0' }} />
 
       <Card title="Employee List" className="mt-8">
-        <Table<DataType> columns={columns} dataSource={data} pagination={{ pageSize: 3 }} />
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Name</TableHead>
+              <TableHead>Email Address</TableHead>
+              <TableHead>Roles</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead>Action</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {currentItems.map((employee) => (
+              <TableRow key={employee.key}>
+                <TableCell>{employee.name}</TableCell>
+                <TableCell>{employee.email}</TableCell>
+                <TableCell>
+                  {employee.roles.map((role) => {
+                    let color = role.length > 5 ? 'geekblue' : 'green';
+                    return (
+                      <Tag color={color} key={role}>
+                        {role.toUpperCase()}
+                      </Tag>
+                    );
+                  })}
+                </TableCell>
+                <TableCell>
+                  {(() => {
+                    let color = employee.status === 'active' ? 'green' : 'volcano';
+                    return (
+                      <Tag color={color} key={employee.status}>
+                        {employee.status.toUpperCase()}
+                      </Tag>
+                    );
+                  })()}
+                </TableCell>
+                <TableCell>
+                  <Space size="middle">
+                    <a>Edit</a>
+                    <a>Suspend</a>
+                  </Space>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        <Pagination className="mt-4">
+          <PaginationContent>
+            <PaginationPrevious
+              onClick={currentPage === 1 ? undefined : () => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              className={currentPage === 1 ? "pointer-events-none opacity-50" : ""}
+            />
+            {[...Array(totalPages)].map((_, index) => (
+              <PaginationItem key={index}>
+                <PaginationLink
+                  isActive={currentPage === index + 1}
+                  onClick={() => setCurrentPage(index + 1)}
+                >
+                  {index + 1}
+                </PaginationLink>
+              </PaginationItem>
+            ))}
+            <PaginationNext
+              onClick={currentPage === totalPages ? undefined : () => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+              className={currentPage === totalPages ? "pointer-events-none opacity-50" : ""}
+            />
+          </PaginationContent>
+        </Pagination>
       </Card>
     </div>
   );
+
 }
