@@ -168,11 +168,11 @@ export default function LandingPage() {
               />
 
               {/* Emoji Decorations */}
-              <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+              {/* <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
                 <span className="absolute top-0 left-10 text-4xl transform -rotate-12 will-change-transform">🌟</span>
                 <span className="absolute top-1/3 left-[10%] text-5xl transform rotate-6 will-change-transform">❤️</span>
                 <span className="absolute bottom-1/2 right-60 text-4xl transform rotate-45 will-change-transform">👍</span>
-              </div>
+              </div> */}
             </div>
 
           </div>
