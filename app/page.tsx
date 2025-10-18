@@ -1,6 +1,7 @@
+
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
@@ -8,6 +9,8 @@ import Image from "next/image";
 import { IconCircleArrowRightFilled } from '@tabler/icons-react';
 import { Playwrite_US_Modern } from "next/font/google";
 import { motion } from "framer-motion";
+import en from "./locales/en.json";
+import ar from "./locales/ar.json";
 
 
 const playwrite = Playwrite_US_Modern({
@@ -17,16 +20,26 @@ const playwrite = Playwrite_US_Modern({
 
 export default function LandingPage() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [language, setLanguage] = useState("ENG");
+  const [lang, setLang] = useState(en);
+
+  useEffect(() => {
+    setLang(language === "ENG" ? en : ar);
+  }, [language]);
+
+  const toggleLanguage = () => {
+    setLanguage(language === "ENG" ? "ARAB" : "ENG");
+  };
 
   const navItems = [
-    { label: "Home", id: "hero" },
-    { label: "Who is Qasim?", id: "who" },
-    { label: "Why Live Stream?", id: "why" },
-    { label: "TikTok Live!", id: "tiktok" },
-    { label: "Our Service", id: "service" }, // Added id here
-    { label: "What They Say", id: "testimonials" }, // New nav item for testimonials
-    { label: "Why become an Amigo?" },
-    { label: "Contact Us" },
+    { label: lang.nav.home, id: "hero" },
+    { label: lang.nav.who, id: "who" },
+    { label: lang.nav.why, id: "why" },
+    { label: lang.nav.tiktok, id: "tiktok" },
+    { label: lang.nav.service, id: "service" },
+    { label: lang.nav.testimonials, id: "testimonials" },
+    { label: lang.nav.amigo },
+    { label: lang.nav.contact },
   ];
 
   // Testimonial data for the marquee
@@ -58,11 +71,13 @@ export default function LandingPage() {
   ];
 
   return (
-    <div className={`${playwrite.className} flex flex-col min-h-screen font-sans bg-[#e9912d] relative overflow-x-hidden`}>
+    <div className={`flex flex-col min-h-screen font-sans bg-[#e9912d] relative overflow-x-hidden ${language === 'ARAB' ? 'font-arabic rtl' : playwrite.className}`}>
       {/* Navigation Header */}
       <header className="fixed top-2 left-1/2 -translate-x-1/2 z-30 w-[80%] sm:w-[60%] lg:w-[50%] bg-[#F0FFF0] rounded-[3rem] py-8 px-6 shadow-md flex justify-between items-center">
         {/* Left text */}
-        <span className="text-[#e9912d] text-sm sm:text-base font-medium">Arab</span>
+        <button onClick={toggleLanguage} className="text-[#e9912d] text-sm sm:text-base font-medium focus:outline-none">
+          {language === "ENG" ? "ARAB" : "ENG"}
+        </button>
 
         {/* Center logo */}
         <div className="text-center">
@@ -166,19 +181,16 @@ export default function LandingPage() {
 
             {/* Left - Text */}
             <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-6 md:space-y-8">
-              <h1 className="text-2xl md:text-4xl tracking-tight text-[#FFFFFF] font-extrabold">
-                Grow Your <br />
-                TikTok Presence
-              </h1>
+              <h1 className="text-2xl md:text-4xl tracking-tight text-[#FFFFFF] font-extrabold" dangerouslySetInnerHTML={{ __html: lang.hero.title }} />
 
               <p className="text-[#005454] text-base md:text-lg leading-relaxed max-w-lg">
-                Welcome to Figo's Amigos Talent Agency—where creativity meets opportunity! At Figo's Amigos, we're passionate about powering up your potential and catapulting your TikTok career to new heights. Join a community that thrives on innovation and collaboration, where every stream is a step toward stardom. Whether you're just starting out or looking to expand your reach, Figo's Amigos provides the tools, support, and platform to transform your passion into a profession.
+                {lang.hero.description}
               </p>
 
               <Button className="bg-[#005454] text-white border-2 border-[#6D6DB7] rounded-full px-6 py-6 flex items-center justify-between font-extrabold
                    hover:bg-[#6A5EBF] hover:text-white
                    transform transition duration-300 ease-in-out hover:scale-105">
-                <span>Join Us</span>
+                <span>{lang.hero.join}</span>
                 <IconCircleArrowRightFilled style={{ width: "38px", height: "38px" }} />
               </Button>
 
@@ -208,17 +220,13 @@ export default function LandingPage() {
             {/* Left - Text */}
             <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-6 md:space-y-8 max-w-lg">
               <h2 className="text-3xl md:text-5xl font-bold text-[#e9912d]">
-                Who is Qasim?
+                {lang.who.title}
               </h2>
-              <p className="text-gray-100 text-base md:text-lg leading-relaxed">
-                Hello! I'm Qasim, the founder of Qasimo's Amigos Talent Agency.
-                My journey on TikTok began in 2020 when I started live streaming
-                with a passion for cooking and helping others showcase their unique talents.
-              </p>
+              <p className="text-gray-100 text-base md:text-lg leading-relaxed" dangerouslySetInnerHTML={{ __html: lang.who.description }} />
               <Button className="bg-[#F9E758] text-[#005454] border-2 border-[#F9E758] rounded-full px-6 py-6 flex items-center justify-between font-extrabold
                    hover:bg-[#FCE33A] hover:text-[#005454]
                    transform transition duration-300 ease-in-out hover:scale-105">
-                <span>Learn more</span>
+                <span>{lang.who.learnMore}</span>
                 <IconCircleArrowRightFilled style={{ width: "38px", height: "38px" }} />
               </Button>
 
@@ -254,7 +262,7 @@ export default function LandingPage() {
                 {/* Views Generated */}
                 <div className="flex flex-col items-center space-y-2">
                   <h3 className="text-[#005454] text-xl sm:text-2xl font-bold">
-                    Views Generated
+                    {lang.stats.views}
                   </h3>
                   <motion.p
                     className="text-white text-4xl sm:text-5xl md:text-6xl font-extrabold"
@@ -270,7 +278,7 @@ export default function LandingPage() {
                 {/* Creators Signed */}
                 <div className="flex flex-col items-center space-y-2">
                   <h3 className="text-[#005454] text-xl sm:text-2xl font-bold">
-                    Creators Signed
+                    {lang.stats.creators}
                   </h3>
                   <motion.p
                     className="text-white text-4xl sm:text-5xl md:text-6xl font-extrabold"
@@ -286,7 +294,7 @@ export default function LandingPage() {
                 {/* Live Hours */}
                 <div className="flex flex-col items-center space-y-2">
                   <h3 className="text-[#005454] text-xl sm:text-2xl font-bold">
-                    Live Hours
+                    {lang.stats.hours}
                   </h3>
                   <motion.p
                     className="text-white text-4xl sm:text-5xl md:text-6xl font-extrabold"
@@ -308,33 +316,29 @@ export default function LandingPage() {
             <div className="max-w-7xl mx-auto px-0 sm:px-8 lg:px-12"> {/* remove px on mobile */}
               <div className="bg-[#e9912d] rounded-[6rem] py-16 px-6 sm:px-12 text-center w-full sm:w-auto"> {/* full width on small */}
                 <h2 className="text-3xl md:text-5xl font-extrabold text-[#005454] mb-12">
-                  Why Live Stream?
+                  {lang.why.title}
                 </h2>
 
                 {/* Cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-16">
                   <div className="bg-[#005454] text-white rounded-xl p-8">
-                    <h3 className="text-xl md:text-2xl font-bold mb-4">Instant Feedback</h3>
+                    <h3 className="text-xl md:text-2xl font-bold mb-4">{lang.why.instantFeedback}</h3>
                     <p className="text-sm md:text-base">
-                      Gain valuable insights directly from your audience through live chats,
-                      comments, and reactions, allowing you to tailor your content for
-                      maximum impact.
+                      {lang.why.instantFeedbackDescription}
                     </p>
                   </div>
 
                   <div className="bg-[#005454] text-white rounded-xl p-8">
-                    <h3 className="text-xl md:text-2xl font-bold mb-4">Authentic Connection</h3>
+                    <h3 className="text-xl md:text-2xl font-bold mb-4">{lang.why.authenticConnection}</h3>
                     <p className="text-sm md:text-base">
-                      The real-time interaction with viewers fosters a genuine sense of
-                      community and loyalty, forging deeper bonds with your audience.
+                      {lang.why.authenticConnectionDescription}
                     </p>
                   </div>
 
                   <div className="bg-[#005454] text-white rounded-xl p-8">
-                    <h3 className="text-xl md:text-2xl font-bold mb-4">Monetization</h3>
+                    <h3 className="text-xl md:text-2xl font-bold mb-4">{lang.why.monetization}</h3>
                     <p className="text-sm md:text-base">
-                      From advertising and subscriptions to viewer donations, live streaming
-                      platforms offer a variety of ways to generate income.
+                      {lang.why.monetizationDescription}
                     </p>
                   </div>
                 </div>
@@ -344,7 +348,7 @@ export default function LandingPage() {
                   <Button className="bg-[#005454] text-white border-2 border-[#6D6DB7] rounded-full px-6 py-6 flex items-center justify-between font-extrabold
           hover:bg-[#6A5EBF] hover:text-white
           transform transition duration-300 ease-in-out hover:scale-105">
-                    <span>Join Us</span>
+                    <span>{lang.hero.join}</span>
                     <IconCircleArrowRightFilled style={{ width: "38px", height: "38px" }} />
                   </Button>
                 </div>
@@ -361,40 +365,38 @@ export default function LandingPage() {
                 {/* Title Badge */}
                 <div className="bg-[#e9912d] rounded-xl px-8 py-3">
                   <h2 className="text-xl md:text-2xl font-extrabold text-[#FFF] tracking-wide">
-                    TIKTOK ADVANTAGES
+                    {lang.tiktok.title}
                   </h2>
                 </div>
 
                 {/* Description */}
                 <p className="text-white text-base md:text-lg leading-relaxed">
-                  TikTok, a leader in short-form video, embraced live streaming. Creators can
-                  leverage TikTok's features to amplify engagement, such as:
+                  {lang.tiktok.description}
                 </p>
 
                 {/* Features List */}
                 <div className="space-y-6">
                   {/* Live Polls */}
                   <div>
-                    <h3 className="text-white text-xl md:text-2xl font-bold mb-2">Live Polls</h3>
+                    <h3 className="text-white text-xl md:text-2xl font-bold mb-2">{lang.tiktok.polls}</h3>
                     <p className="text-white text-sm md:text-base">
-                      Get instant feedback from your audience and create interactive discussions.
+                      {lang.tiktok.pollsDescription}
                     </p>
                   </div>
 
                   {/* Q&A Sessions */}
                   <div>
-                    <h3 className="text-white text-xl md:text-2xl font-bold mb-2">Q&A Sessions</h3>
+                    <h3 className="text-white text-xl md:text-2xl font-bold mb-2">{lang.tiktok.qa}</h3>
                     <p className="text-white text-sm md:text-base">
-                      Answer questions directly from your viewers, fostering a sense of transparency
-                      and involvement.
+                      {lang.tiktok.qaDescription}
                     </p>
                   </div>
 
                   {/* Live Reactions */}
                   <div>
-                    <h3 className="text-white text-xl md:text-2xl font-bold mb-2">Live Reactions</h3>
+                    <h3 className="text-white text-xl md:text-2xl font-bold mb-2">{lang.tiktok.reactions}</h3>
                     <p className="text-white text-sm md:text-base">
-                      Show your genuine emotions and connect with your audience on a deeper level.
+                      {lang.tiktok.reactionsDescription}
                     </p>
                   </div>
                 </div>
@@ -418,17 +420,13 @@ export default function LandingPage() {
           <section className="bg-[#005454] py-12 sm:py-16 relative -mt-12 sm:-mt-16">
             {/* Make the card full width */}
             <div className="w-full bg-[#e9912d] rounded-tr-[6rem] rounded-tl-[6rem] py-24 px-6 sm:px-12 flex flex-col items-center justify-center">
-              <h2 className="text-3xl md:text-5xl font-extrabold text-[#FFFFFF] mb-12 text-center">
-                Make Your Content Go Viral
-                <br />
-                With Figo's Amigos
-              </h2>
+              <h2 className="text-3xl md:text-5xl font-extrabold text-[#FFFFFF] mb-12 text-center" dangerouslySetInnerHTML={{ __html: lang.viral.title}} />
               {/* Centered CTA Button - MOVED HERE */}
               <div className="flex justify-center">
                 <Button className="bg-[#005454] text-white border-2 border-[#6D6DB7] rounded-full px-6 py-6 flex items-center justify-between font-extrabold
           hover:bg-[#6A5EBF] hover:text-white
           transform transition duration-300 ease-in-out hover:scale-105">
-                  <span>Join Us</span>
+                  <span>{lang.hero.join}</span>
                   <IconCircleArrowRightFilled style={{ width: "38px", height: "38px" }} />
                 </Button>
               </div>
@@ -439,7 +437,7 @@ export default function LandingPage() {
           <section id="service" className="bg-[#005454] py-20 md:py-32">
             <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12 text-center">
               <h2 className="text-3xl md:text-5xl font-extrabold text-[#e9912d] mb-16">
-                Our Service and Support
+                {lang.service.title}
               </h2>
 
               {/* Cards Container - Using Flexbox for wrapping and centering */}
@@ -447,52 +445,41 @@ export default function LandingPage() {
 
                 {/* Card 1: Promotion & Marketing */}
                 <div className="bg-[#e9912d] rounded-2xl p-8 text-left w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.33%-1.5rem)]">
-                  <h3 className="text-white text-xl md:text-2xl font-bold mb-4">Promotion & Marketing</h3>
+                  <h3 className="text-white text-xl md:text-2xl font-bold mb-4">{lang.service.promotion}</h3>
                   <p className="text-white text-sm md:text-base font-medium">
-                    We'll assist you in reaching a wider audience through customized
-                    marketing strategies, in-app promotional tools, and introducing
-                    you to new communities on TikTok. Get ready to go viral!
+                    {lang.service.promotionDescription}
                   </p>
                 </div>
 
                 {/* Card 2: Income Generation */}
                 <div className="bg-[#e9912d] rounded-2xl p-8 text-left w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.33%-1.5rem)]">
-                  <h3 className="text-white text-xl md:text-2xl font-bold mb-4">Income Generation</h3>
+                  <h3 className="text-white text-xl md:text-2xl font-bold mb-4">{lang.service.income}</h3>
                   <p className="text-white text-sm md:text-base font-medium">
-                    From maximizing in-app earnings to boosting tips and gifts from your
-                    fans, we provide guidance on the best monetization strategies. We
-                    help you understand the market and seize financial opportunities.
+                    {lang.service.incomeDescription}
                   </p>
                 </div>
 
                 {/* Card 3: Personal Mentorship */}
                 <div className="bg-[#e9912d] rounded-2xl p-8 text-left w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.33%-1.5rem)]">
-                  <h3 className="text-white text-xl md:text-2xl font-bold mb-4">Personal Mentorship</h3>
+                  <h3 className="text-white text-xl md:text-2xl font-bold mb-4">{lang.service.mentorship}</h3>
                   <p className="text-white text-sm md:text-base font-medium">
-                    Receive one-on-one guidance from industry experts who will help you
-                    set clear goals and create actionable plans to achieve them.
-                    We're committed to helping you succeed!
+                    {lang.service.mentorshipDescription}
                   </p>
                 </div>
 
                 {/* Card 4: Talent Management */}
                 <div className="bg-[#e9912d] rounded-2xl p-8 text-left w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.33%-1.5rem)]">
-                  <h3 className="text-white text-xl md:text-2xl font-bold mb-4">Talent Management</h3>
+                  <h3 className="text-white text-xl md:text-2xl font-bold mb-4">{lang.service.management}</h3>
                   <p className="text-white text-sm md:text-base font-medium">
-                    Join a supportive and stimulating environment that encourages
-                    collaboration with other talented creators. Participate in exclusive
-                    events and grow your network while building a personal brand that
-                    captivates your target audience.
+                    {lang.service.managementDescription}
                   </p>
                 </div>
 
                 {/* Card 5: Interactive Activities */}
                 <div className="bg-[#e9912d] rounded-2xl p-8 text-left w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.33%-1.5rem)]">
-                  <h3 className="text-white text-xl md:text-2xl font-bold mb-4">Interactive Activities</h3>
+                  <h3 className="text-white text-xl md:text-2xl font-bold mb-4">{lang.service.activities}</h3>
                   <p className="text-white text-sm md:text-base font-medium">
-                    Get access to unique opportunities to showcase your skills, both on and
-                    off the platform. Participate in exclusive events, increase your
-                    audience engagement, and elevate your profile in the community.
+                    {lang.service.activitiesDescription}
                   </p>
                 </div>
               </div>
@@ -506,10 +493,10 @@ export default function LandingPage() {
             {/* Heading and Subheading */}
             <div className="text-center mb-10 px-6">
               <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4">
-                Why become an Amigo?
+                {lang.amigo.title}
               </h2>
               <p className="text-white text-lg md:text-xl font-semibold">
-                We believe that every creator has a story to tell
+                {lang.amigo.subtitle}
               </p>
             </div>
 
@@ -531,33 +518,33 @@ export default function LandingPage() {
 
                 {/* Feature 1: Comprehensive Support */}
                 <div>
-                  <h3 className="text-xl font-extrabold text-[#005454] mb-3">Comprehensive Support</h3>
+                  <h3 className="text-xl font-extrabold text-[#005454] mb-3">{lang.amigo.support}</h3>
                   <p className="text-base text-gray-800">
-                    From technical assistance to content development, we're with you every step of the way.
+                    {lang.amigo.supportDescription}
                   </p>
                 </div>
 
                 {/* Feature 2: Revenue Opportunities */}
                 <div>
-                  <h3 className="text-xl font-extrabold text-[#005454] mb-3">Revenue Opportunities</h3>
+                  <h3 className="text-xl font-extrabold text-[#005454] mb-3">{lang.amigo.revenue}</h3>
                   <p className="text-base text-gray-800">
-                    Learn how to monetize your content effectively and maximize your earnings.
+                    {lang.amigo.revenueDescription}
                   </p>
                 </div>
 
                 {/* Feature 3: Exposure and Growth */}
                 <div>
-                  <h3 className="text-xl font-extrabold text-[#005454] mb-3">Exposure and Growth</h3>
+                  <h3 className="text-xl font-extrabold text-[#005454] mb-3">{lang.amigo.exposure}</h3>
                   <p className="text-base text-gray-800">
-                    Get the chance to reach new audiences, increase your followers, and build your personal brand.
+                    {lang.amigo.exposureDescription}
                   </p>
                 </div>
 
                 {/* Feature 4: Availability */}
                 <div>
-                  <h3 className="text-xl font-extrabold text-[#005454] mb-3">Availability</h3>
+                  <h3 className="text-xl font-extrabold text-[#005454] mb-3">{lang.amigo.availability}</h3>
                   <p className="text-base text-gray-800">
-                    We operate around the clock across Egypt, Kuwait, Saudi Arabia, Lebanon, and the UAE, so you're never without support!
+                    {lang.amigo.availabilityDescription}
                   </p>
                 </div>
 
@@ -568,7 +555,7 @@ export default function LandingPage() {
                 <Button className="bg-[#005454] text-white border-2 border-[#6D6DB7] rounded-full px-6 py-6 flex items-center justify-between font-extrabold
           hover:bg-[#6A5EBF] hover:text-white
           transform transition duration-300 ease-in-out hover:scale-105">
-                  <span>Join Us</span>
+                  <span>{lang.hero.join}</span>
                   <IconCircleArrowRightFilled style={{ width: "38px", height: "38px" }} />
                 </Button>
               </div>
@@ -611,10 +598,10 @@ export default function LandingPage() {
 
             <div className="text-center mb-16 px-6">
               <h2 className="text-3xl md:text-5xl font-extrabold text-[#e9912d] mb-4">
-                What They Say About Us?
+                {lang.testimonials.title}
               </h2>
               <p className="text-white text-lg md:text-xl">
-                Real feedback from creators we've helped grow.
+                {lang.testimonials.subtitle}
               </p>
             </div>
 
@@ -655,7 +642,7 @@ export default function LandingPage() {
             <div className="max-w-xl mx-auto px-6 sm:px-12 text-center">
               {/* Title */}
               <h2 className="text-4xl md:text-6xl font-extrabold text-white mb-12 drop-shadow-lg">
-                Contact Us
+                {lang.contact.title}
               </h2>
 
               {/* Form Container (The large rounded purple card) */}
@@ -666,12 +653,12 @@ export default function LandingPage() {
                     {/* Name Field */}
                     <div>
                       <label htmlFor="name" className="block text-white text-left font-bold mb-2">
-                        Name
+                        {lang.contact.name}
                       </label>
                       <input
                         type="text"
                         id="name"
-                        placeholder="Jane Smith"
+                        placeholder={lang.contact.namePlaceholder}
                         className="w-full p-4 rounded-xl border-none focus:ring-2 focus:ring-[#e9912d] text-lg bg-[#E0E0E0] text-[#5A4D9A]"
                       />
                     </div>
@@ -679,12 +666,12 @@ export default function LandingPage() {
                     {/* TikTok Handle Field */}
                     <div>
                       <label htmlFor="tiktok" className="block text-white text-left font-bold mb-2">
-                        TikTok Handle
+                        {lang.contact.tiktokHandle}
                       </label>
                       <input
                         type="text"
                         id="tiktok"
-                        placeholder="Jane_Smith"
+                        placeholder={lang.contact.tiktokHandlePlaceholder}
                         className="w-full p-4 rounded-xl border-none focus:ring-2 focus:ring-[#e9912d] text-lg bg-[#E0E0E0] text-[#5A4D9A]"
                       />
                     </div>
@@ -692,12 +679,12 @@ export default function LandingPage() {
                     {/* Email Field */}
                     <div>
                       <label htmlFor="email" className="block text-white text-left font-bold mb-2">
-                        Email
+                        {lang.contact.email}
                       </label>
                       <input
                         type="email"
                         id="email"
-                        placeholder="jane@framer.com"
+                        placeholder={lang.contact.emailPlaceholder}
                         className="w-full p-4 rounded-xl border-none focus:ring-2 focus:ring-[#e9912d] text-lg bg-[#E0E0E0] text-[#5A4D9A]"
                       />
                     </div>
@@ -705,12 +692,12 @@ export default function LandingPage() {
                     {/* Phone Number Field */}
                     <div>
                       <label htmlFor="phone" className="block text-white text-left font-bold mb-2">
-                        Phone Number
+                        {lang.contact.phone}
                       </label>
                       <input
                         type="tel"
                         id="phone"
-                        placeholder="+965"
+                        placeholder={lang.contact.phonePlaceholder}
                         className="w-full p-4 rounded-xl border-none focus:ring-2 focus:ring-[#e9912d] text-lg bg-[#E0E0E0] text-[#5A4D9A]"
                       />
                     </div>
@@ -719,19 +706,19 @@ export default function LandingPage() {
                   {/* Message Field */}
                   <div className="pt-2">
                     <label htmlFor="message" className="block text-white text-left font-bold mb-2">
-                      Message
+                      {lang.contact.message}
                     </label>
                     <textarea
                       id="message"
                       rows={5}
-                      placeholder="Your message..."
+                      placeholder={lang.contact.messagePlaceholder}
                       className="w-full p-4 rounded-xl border-none focus:ring-2 focus:ring-[#e9912d] text-lg resize-none bg-[#E0E0E0] text-[#5A4D9A]"
                     ></textarea>
                   </div>
 
                   {/* Submit Button */}
                   <Button type="submit" className="w-full bg-[#e9912d] text-white py-6 rounded-xl text-xl font-extrabold hover:bg-[#6A5EBF] transition duration-300">
-                    Submit
+                    {lang.contact.submit}
                   </Button>
                 </form>
               </div>

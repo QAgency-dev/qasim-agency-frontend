@@ -1,0 +1,92 @@
+{
+  "nav": {
+    "home": "Home",
+    "who": "Who is Qasim?",
+    "why": "Why Live Stream?",
+    "tiktok": "TikTok Live!",
+    "service": "Our Service",
+    "testimonials": "What They Say",
+    "amigo": "Why become an Amigo?",
+    "contact": "Contact Us"
+  },
+  "hero": {
+    "title": "Grow Your <br /> TikTok Presence",
+    "description": "Welcome to Figo's Amigos Talent Agency—where creativity meets opportunity! At Figo's Amigos, we're passionate about powering up your potential and catapulting your TikTok career to new heights. Join a community that thrives on innovation and collaboration, where every stream is a step toward stardom. Whether you're just starting out or looking to expand your reach, Figo's Amigos provides the tools, support, and platform to transform your passion into a profession.",
+    "join": "Join Us"
+  },
+  "who": {
+    "title": "Who is Qasim?",
+    "description": "Hello! I'm Qasim, the founder of Qasimo's Amigos Talent Agency.<br />My journey on TikTok began in 2020 when I started live streaming<br />with a passion for cooking and helping others showcase their unique talents.",
+    "learnMore": "Learn more"
+  },
+  "stats": {
+    "views": "Views Generated",
+    "creators": "Creators Signed",
+    "hours": "Live Hours"
+  },
+  "why": {
+    "title": "Why Live Stream?",
+    "instantFeedback": "Instant Feedback",
+    "instantFeedbackDescription": "Gain valuable insights directly from your audience through live chats, comments, and reactions, allowing you to tailor your content for maximum impact.",
+    "authenticConnection": "Authentic Connection",
+    "authenticConnectionDescription": "The real-time interaction with viewers fosters a genuine sense of community and loyalty, forging deeper bonds with your audience.",
+    "monetization": "Monetization",
+    "monetizationDescription": "From advertising and subscriptions to viewer donations, live streaming platforms offer a variety of ways to generate income."
+  },
+  "tiktok": {
+    "title": "TIKTOK ADVANTAGES",
+    "description": "TikTok, a leader in short-form video, embraced live streaming. Creators can leverage TikTok's features to amplify engagement, such as:",
+    "polls": "Live Polls",
+    "pollsDescription": "Get instant feedback from your audience and create interactive discussions.",
+    "qa": "Q&A Sessions",
+    "qaDescription": "Answer questions directly from your viewers, fostering a sense of transparency and involvement.",
+    "reactions": "Live Reactions",
+    "reactionsDescription": "Show your genuine emotions and connect with your audience on a deeper level."
+  },
+  "viral": {
+    "title": "Make Your Content Go Viral<br />With Figo's Amigos"
+  },
+  "service": {
+    "title": "Our Service and Support",
+    "promotion": "Promotion & Marketing",
+    "promotionDescription": "We'll assist you in reaching a wider audience through customized marketing strategies, in-app promotional tools, and introducing you to new communities on TikTok. Get ready to go viral!",
+    "income": "Income Generation",
+    "incomeDescription": "From maximizing in-app earnings to boosting tips and gifts from your fans, we provide guidance on the best monetization strategies. We help you understand the market and seize financial opportunities.",
+    "mentorship": "Personal Mentorship",
+    "mentorshipDescription": "Receive one-on-one guidance from industry experts who will help you set clear goals and create actionable plans to achieve them. We're committed to helping you succeed!",
+    "management": "Talent Management",
+    "managementDescription": "Join a supportive and stimulating environment that encourages collaboration with other talented creators. Participate in exclusive events and grow your network while building a personal brand that captivates your target audience.",
+    "activities": "Interactive Activities",
+    "activitiesDescription": "Get access to unique opportunities to showcase your skills, both on and off the platform. Participate in exclusive events, increase your audience engagement, and elevate your profile in the community."
+  },
+  "amigo": {
+    "title": "Why become an Amigo?",
+    "subtitle": "We believe that every creator has a story to tell",
+    "support": "Comprehensive Support",
+    "supportDescription": "From technical assistance to content development, we're with you every step of the way.",
+    "revenue": "Revenue Opportunities",
+    "revenueDescription": "Learn how to monetize your content effectively and maximize your earnings.",
+    "exposure": "Exposure and Growth",
+    "exposureDescription": "Get the chance to reach new audiences, increase your followers, and build your personal brand.",
+    "availability": "Availability",
+    "availabilityDescription": "We operate around the clock across Egypt, Kuwait, Saudi Arabia, Lebanon, and the UAE, so you're never without support!"
+  },
+  "testimonials": {
+    "title": "What They Say About Us?",
+    "subtitle": "Real feedback from creators we've helped grow."
+  },
+  "contact": {
+    "title": "Contact Us",
+    "name": "Name",
+    "namePlaceholder": "Jane Smith",
+    "tiktokHandle": "TikTok Handle",
+    "tiktokHandlePlaceholder": "Jane_Smith",
+    "email": "Email",
+    "emailPlaceholder": "jane@framer.com",
+    "phone": "Phone Number",
+    "phonePlaceholder": "+965",
+    "message": "Message",
+    "messagePlaceholder": "Your message...",
+    "submit": "Submit"
+  }
+}

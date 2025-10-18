@@ -127,3 +127,11 @@
 .text-thick-bold {
   -webkit-text-stroke: 1px;
 }
+
+.font-arabic {
+  font-family: var(--font-noto-kufi-arabic);
+}
+
+.rtl {
+  direction: rtl;
+}
